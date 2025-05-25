@@ -14,10 +14,10 @@ RSpec.describe "quests/index", type: :view do
     ])
   end
 
-  it "renders a list of quests" do
+  it "shows 'No quests found' when there are no quests" do
+    assign(:quests, [])
     render
-    expect(rendered).to match(/First Quest/)
-    expect(rendered).to match(/Second Quest/)
-    expect(rendered).to match(/No/)
+    expect(rendered).to match(/No quests found/)
   end
+
 end

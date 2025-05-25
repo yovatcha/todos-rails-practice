@@ -1,10 +1,18 @@
-<div id="<%= dom_id quest %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= quest.name %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= quest.status? ? "Yes" : "No" %>
+<div id="<%= dom_id quest %>" class="w-full my-10">
+  <div class="bg-base-100 rounded-xl p-6 space-y-4">
+    <h2 class="text-2xl font-bold text-primary mb-2">🎯 <%= quest.name %></h2>
+    <div>
+      <span class="block text-sm font-semibold text-gray-500 mb-1">Status</span>
+      <% if quest.status? %>
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium">
+          ✅ Done
+        </span>
+      <% else %>
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-sm font-medium">
+          ⏳ Undone
+        </span>
+      <% end %>
+    </div>
+
   </div>
 </div>

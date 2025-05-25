@@ -74,14 +74,14 @@
               <%= f.hidden_field :name, value: quest.name %>
               <span class="text-lg font-medium <%= 'line-through text-primary' if quest.status? %>"
                     data-quest-target="name">
-                <%= quest.name %>
+                        <%= truncate(quest.name, length: 20, omission: '...', separator: ' ') %>
               </span>
             </div>
           <% end %>
 
           <!-- Actions -->
           <div class="flex gap-2">
-            <%= link_to "✏️", quest_path(quest), class: "btn btn-accent btn-sm" %>
+            <%= link_to "👁️", quest_path(quest), class: "btn btn-accent btn-sm" %>
             <%= button_to "🗑️", quest, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-error btn-sm" %>
           </div>
         </div>
