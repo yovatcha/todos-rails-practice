@@ -1,1 +1,13 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../../../public/*.html";
+@source "../../../app/helpers/**/*.rb";
+@source "../../../app/javascript/**/*.js";
+@source "../../../app/views/**/*";
+@plugin "daisyui" {
+    themes: all;
+}
+
+@source "../../../app/assets/stylesheets/**/*.css";
+@source "../../../app/assets/stylesheets/**/*.scss";
+
+/* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */

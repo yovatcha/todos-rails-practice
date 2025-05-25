@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="<%= local_assigns[:theme] || 'light' %>">
   <head>
     <title><%= content_for(:title) || "Sunday Todos22" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -26,5 +26,35 @@
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
+    <script>
+      function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateThemeSelector(theme);
+      }
+
+      function applyStoredTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+          updateThemeSelector(savedTheme);
+        }
+      }
+
+      function updateThemeSelector(theme) {
+        const selector = document.getElementById('theme-selector');
+        if (selector) {
+          for (let i = 0; i < selector.options.length; i++) {
+            if (selector.options[i].value === theme) {
+              selector.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", applyStoredTheme);
+      document.addEventListener("turbo:load", applyStoredTheme);
+    </script>
   </body>
 </html>
