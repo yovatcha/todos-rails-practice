@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="<%= local_assigns[:theme] || 'light' %>">
+<html lang="en" data-theme="light">
   <head>
-    <title><%= content_for(:title) || "Sunday Todos22" %></title>
+    <title><%= content_for(:title) || "Sunday Todos" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -23,7 +23,8 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+      <%= render 'shared/navbar' %>
+    <main class="container mx-auto mt-10 px-5 flex">
       <%= yield %>
     </main>
     <script>
@@ -56,5 +57,6 @@
       document.addEventListener("DOMContentLoaded", applyStoredTheme);
       document.addEventListener("turbo:load", applyStoredTheme);
     </script>
+
   </body>
 </html>

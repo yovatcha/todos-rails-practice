@@ -13,119 +13,113 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/quests", type: :request do
-  
-  # This should return the minimal set of attributes required to create a valid
-  # Quest. As you add validations to Quest, be sure to
-  # adjust the attributes here as well.
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { name: "Test Quest", status: false }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: "", status: false }
   }
 
   describe "GET /index" do
     it "renders a successful response" do
-      Quest.create! valid_attributes
-      get quests_url
+      get quests_path
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
+    let(:quest) { Quest.create!(name: "Test Quest", status: false) }
+
     it "renders a successful response" do
-      quest = Quest.create! valid_attributes
-      get quest_url(quest)
+      get quest_path(quest)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_quest_url
+      get new_quest_path
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
+    let(:quest) { Quest.create!(name: "Test Quest", status: false) }
+
     it "renders a successful response" do
-      quest = Quest.create! valid_attributes
-      get edit_quest_url(quest)
+      get edit_quest_path(quest)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new Quest" do
+      it "creates a new quest" do
         expect {
-          post quests_url, params: { quest: valid_attributes }
+          post quests_path, params: { quest: valid_attributes }
         }.to change(Quest, :count).by(1)
       end
 
       it "redirects to the created quest" do
-        post quests_url, params: { quest: valid_attributes }
-        expect(response).to redirect_to(quest_url(Quest.last))
+        post quests_path, params: { quest: valid_attributes }
+        expect(response).to redirect_to(quest_path(Quest.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new Quest" do
+      it "does not create a new quest" do
         expect {
-          post quests_url, params: { quest: invalid_attributes }
+          post quests_path, params: { quest: invalid_attributes }
         }.to change(Quest, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post quests_url, params: { quest: invalid_attributes }
+        post quests_path, params: { quest: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "PATCH /update" do
+    let(:quest) { Quest.create!(valid_attributes) }
+
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: "Updated Quest", status: true }
       }
 
       it "updates the requested quest" do
-        quest = Quest.create! valid_attributes
-        patch quest_url(quest), params: { quest: new_attributes }
+        patch quest_path(quest), params: { quest: new_attributes }
         quest.reload
-        skip("Add assertions for updated state")
+        expect(quest.name).to eq("Updated Quest")
+        expect(quest.status).to eq(true)
       end
 
       it "redirects to the quest" do
-        quest = Quest.create! valid_attributes
-        patch quest_url(quest), params: { quest: new_attributes }
+        patch quest_path(quest), params: { quest: new_attributes }
         quest.reload
-        expect(response).to redirect_to(quest_url(quest))
+        expect(response).to redirect_to(quest_path(quest))
       end
     end
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        quest = Quest.create! valid_attributes
-        patch quest_url(quest), params: { quest: invalid_attributes }
+        patch quest_path(quest), params: { quest: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested quest" do
-      quest = Quest.create! valid_attributes
-      expect {
-        delete quest_url(quest)
-      }.to change(Quest, :count).by(-1)
-    end
+    let!(:quest) { Quest.create!(name: "Test Quest", status: false) }
 
-    it "redirects to the quests list" do
-      quest = Quest.create! valid_attributes
-      delete quest_url(quest)
-      expect(response).to redirect_to(quests_url)
+    it "destroys the requested quest" do
+      expect {
+        delete quest_path(quest)
+      }.to change(Quest, :count).by(-1)
+      expect(response).to redirect_to(quests_path)
     end
   end
 end
