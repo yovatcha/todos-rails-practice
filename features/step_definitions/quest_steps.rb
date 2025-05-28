@@ -17,7 +17,3 @@ end
 Then("I should not see {string}") do |text|
   expect(page).not_to have_content(text)
 end
-
-When("I click the element with test ID {string}") do |testid|
-  find("[data-testid='#{testid}']", match: :first).click
-end

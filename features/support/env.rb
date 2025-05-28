@@ -4,7 +4,6 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-
 require 'cucumber/rails'
 
 # By default, any exception happening in your Rails application will bubble up
@@ -26,11 +25,13 @@ ActionController::Base.allow_rescue = false
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
-begin
-  DatabaseCleaner.strategy = :transaction
-rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
-end
+
+# COMMENTED OUT - database_cleaner not installed
+# begin
+#   DatabaseCleaner.strategy = :transaction
+# rescue NameError
+#   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+# end
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
 # See the DatabaseCleaner documentation for details. Example:
@@ -51,3 +52,18 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
+# REPLACED database_cleaner with simple Rails cleanup
+# require 'database_cleaner'
+# DatabaseCleaner.strategy = :truncation
+
+# Simple cleanup using Rails built-in methods
+Before do
+  # Clean up before each scenario
+  Quest.delete_all if defined?(Quest)
+end
+
+After do |scenario|
+  # Clean up after each scenario
+  Quest.delete_all if defined?(Quest)
+end

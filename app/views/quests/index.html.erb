@@ -91,7 +91,7 @@
           <!-- Actions -->
           <div class="flex gap-2">
             <%= link_to "👁️", quest_path(quest), class: "btn btn-accent btn-sm", data: { testid: 'view-button'} %>
-            <%= button_to "🗑️", quest, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-error btn-sm", data: { testid: 'delete-button'} %>
+            <%= button_to "🗑️", quest, method: :delete, data: { turbo_confirm: "Are you sure?", testid: 'delete-button' }, class: "btn btn-error btn-sm" %>
           </div>
         </div>
       <% end %>
