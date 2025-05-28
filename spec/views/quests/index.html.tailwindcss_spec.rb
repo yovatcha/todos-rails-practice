@@ -19,5 +19,4 @@ RSpec.describe "quests/index", type: :view do
     render
     expect(rendered).to match(/No quests found/)
   end
-
 end

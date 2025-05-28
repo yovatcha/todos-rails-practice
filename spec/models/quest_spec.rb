@@ -53,7 +53,7 @@ RSpec.describe Quest, type: :model do
       expect(quest).not_to be_valid
       expect(quest.errors[:name]).to include("can't be blank")
     end
-    
+
     it "is not valid with a duplicate name" do
       Quest.create!(name: "Duplicate Quest")
       quest = Quest.new(name: "Duplicate Quest")
