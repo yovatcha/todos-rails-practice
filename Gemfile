@@ -62,7 +62,7 @@ group :test do
   gem "webdrivers", require: false
   gem "factory_bot_rails"
   gem "rails-controller-testing"
+  gem "database_cleaner-active_record"
   gem "cucumber-rails", require: false
-  gem "database_cleaner"
   gem "rspec_junit_formatter"
 end
